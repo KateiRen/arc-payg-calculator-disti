@@ -209,11 +209,26 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /function compact\(v\)\{return new Intl\.NumberFormat\(undefined,\{style:'currency',currency:state\[pane\]\.currency,notation:'compact'/);
   assert.match(html, /const PEC_RATE=\.15;/);
   assert.doesNotMatch(html, /id="pec"/);
-  assert.match(html, /PEC is fixed at 15% and deducted from the stored Azure PAYG price before the cost comparison/);
+  assert.match(html, /PEC is fixed at 15% and deducted from the reseller Azure PAYG price before the cost comparison/);
   assert.match(html, /<span class="pill">PEC applied<\/span>/);
-  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['payg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
   assert.match(html, /labels=\['SPLA Incentive loss','Purchase price','MCI Core','Growth Accelerator','DCO'\]/);
   assert.doesNotMatch(html, /Partner Earned Credit/);
+  assert.match(html, /data-pane="pricing">Distributor<\/button>/);
+  assert.match(html, /SPLA List Price/);
+  assert.match(html, /SPLA Reseller Prices/);
+  for (const id of [
+    'sqlSplaList1', 'sqlSplaList2', 'winSplaList1', 'winSplaList2',
+    'sqlSpla1', 'sqlSpla2', 'winSpla1', 'winSpla2',
+    'sqlPayg1', 'sqlPayg2', 'winPayg1',
+    'sqlResellerPayg1', 'sqlResellerPayg2', 'winResellerPayg1',
+  ]) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  assert.match(html, /if\(!p\.splaEntered\)missing\.push\('reseller SPLA prices'\)/);
+  assert.match(html, /if\(!p\.resellerPaygEntered\)missing\.push\('reseller Azure PAYG prices'\)/);
+  assert.match(html, /splaList1:splaListEntered\?splaList1:0/);
+  assert.match(html, /resellerPayg1:resellerPaygEntered\?resellerPayg1:0/);
   assert.doesNotMatch(html, /const WINSPLA=|const SQL=\{/);
   assert.match(html, /const SQLPAYG=\{/);
   assert.match(html, /function azurePricingSnapshot\(\).*?snapshot\[key\]=\{payg1:p\.payg1,payg2:p\.payg2\}/);
