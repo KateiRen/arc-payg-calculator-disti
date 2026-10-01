@@ -55,9 +55,9 @@ flowchart TD
     WORKLOAD --> DIST_SPLA_COST
     D_INCENTIVES --> DIST_SPLA_INCENTIVE["SPLA incentive on distributor SPLA cost"]
     DIST_SPLA_COST --> DIST_SPLA_INCENTIVE
-    DIST_SPLA_REVENUE --> DIST_SPLA_MARGIN["SPLA margin<br/>Revenue - cost + SPLA incentive"]
-    DIST_SPLA_COST --> DIST_SPLA_MARGIN
-    DIST_SPLA_INCENTIVE --> DIST_SPLA_MARGIN
+    DIST_SPLA_REVENUE --> DIST_SPLA_CONTRIBUTION["SPLA economic contribution<br/>Revenue - cost + SPLA incentive"]
+    DIST_SPLA_COST --> DIST_SPLA_CONTRIBUTION
+    DIST_SPLA_INCENTIVE --> DIST_SPLA_CONTRIBUTION
 
     R_AZURE --> DIST_AZURE_REVENUE["Annual distributor Azure revenue<br/>without PEC deduction"]
     D_AZURE --> DIST_PEC["Apply fixed 15% PEC"]
@@ -69,12 +69,15 @@ flowchart TD
     DIST_SPLA_INCENTIVE --> DIST_SPLA_LOSS["Lost SPLA incentive"]
     DCO_CONFIG --> DIST_DCO["Retained DCO<br/>DCO less pass-along share"]
     DIST_AZURE_COST --> DIST_DCO
-    DIST_AZURE_REVENUE --> DIST_AZURE_MARGIN["Azure margin<br/>Revenue - cost + MCI + Growth<br/>+ retained DCO - lost SPLA incentive"]
-    DIST_AZURE_COST --> DIST_AZURE_MARGIN
-    DIST_MCI --> DIST_AZURE_MARGIN
-    DIST_SPLA_LOSS --> DIST_AZURE_MARGIN
-    DIST_DCO --> DIST_AZURE_MARGIN
+    DIST_AZURE_REVENUE --> DIST_AZURE_CONTRIBUTION["Azure economic contribution<br/>Revenue - cost + MCI + Growth<br/>+ retained DCO - lost SPLA incentive"]
+    DIST_AZURE_COST --> DIST_AZURE_CONTRIBUTION
+    DIST_MCI --> DIST_AZURE_CONTRIBUTION
+    DIST_SPLA_LOSS --> DIST_AZURE_CONTRIBUTION
+    DIST_DCO --> DIST_AZURE_CONTRIBUTION
 
-    DIST_SPLA_MARGIN --> DIST_OUTPUT["Distributor business-case table and chart"]
-    DIST_AZURE_MARGIN --> DIST_OUTPUT
+    DIST_SPLA_CONTRIBUTION --> DIST_GROWTH["Economic impact growth<br/>(Azure contribution - SPLA contribution)<br/>/ |SPLA contribution| x 100"]
+    DIST_AZURE_CONTRIBUTION --> DIST_GROWTH
+    DIST_GROWTH --> DIST_GROWTH_OUTPUT["Highlighted growth result"]
+    DIST_SPLA_CONTRIBUTION --> DIST_OUTPUT["Distributor business-case table and chart"]
+    DIST_AZURE_CONTRIBUTION --> DIST_OUTPUT
 ```
