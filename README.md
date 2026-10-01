@@ -13,6 +13,11 @@ prices persist in browser storage and exported project JSON files, but are never
 embedded in a hosted or offline HTML copy. Project names and configured
 workloads are retained only in exported project JSON files.
 
+DCO is configured once at the distributor level and applies to both reseller
+calculations. Its default incentive rate is 12%. The reseller impact includes a
+DCO component only when pass-along is enabled and the configured share is
+greater than zero.
+
 ## Price refresh and deployment
 
 The **Refresh estimator prices** GitHub Actions workflow:
