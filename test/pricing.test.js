@@ -209,10 +209,10 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /function compact\(v\)\{return new Intl\.NumberFormat\(undefined,\{style:'currency',currency:state\[pane\]\.currency,notation:'compact'/);
   assert.match(html, /const PEC_RATE=\.15;/);
   assert.doesNotMatch(html, /id="pec"/);
-  assert.match(html, /PEC is fixed at 15% and deducted from the reseller Azure PAYG price before the cost comparison/);
+  assert.match(html, /It is not deducted from reseller Azure revenue in the distributor business case/);
   assert.match(html, /<span class="pill">PEC applied<\/span>/);
   assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
-  assert.match(html, /function defaultDcoSettings\(\)\{return\{hasDco:false,dcoRate:12,passDco:false,dcoShare:0\}\}/);
+  assert.match(html, /function defaultDcoSettings\(\)\{return\{hasDco:false,dcoRate:12,passDco:false,dcoShare:0,splaIncentive:5,mci:3,growth:12\}\}/);
   assert.match(html, /id="hasDco"/);
   assert.strictEqual((html.match(/id="hasDco"/g) || []).length, 1);
   assert.match(html, /id="dcoRate"/);
@@ -225,6 +225,19 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /if\(dcoShare>0\)parts\.push\(\['DCO incentive'/);
   assert.doesNotMatch(html, /s\.hasDco=\$\('hasDco'\)|s\.hasDco\?\.1/);
   assert.match(html, /distributor:JSON\.parse\(JSON\.stringify\(dcoSettings\)\)/);
+  assert.match(html, /id="distSplaIncentive"/);
+  assert.match(html, /Your average incentives on SLA \(%\)/);
+  assert.match(html, /Non-Named Hoster&#10;- SQL SE 4%&#10;- SQL EE 7%&#10;&#10;Named Hoster&#10;- SQL SE 3%&#10;- SQL EE 3%/);
+  assert.match(html, /id="distMci"/);
+  assert.match(html, /id="distGrowth"/);
+  assert.match(html, /function distributorRowEconomics\(/);
+  assert.match(html, /azureRevenue:paygC\*hours\*p\['resellerPayg'\+idx\],azureCost:/);
+  assert.doesNotMatch(html, /azureRevenue:paygC\*hours\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /azureCost:paygC\*hours\*p\['payg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /splaMargin=splaBaseMargin\+splaIncentive/);
+  assert.match(html, /azureMargin=azureBaseMargin-splaIncentive\+mci\+growth\+retainedDco/);
+  assert.match(html, /retainedDco=dcoSettings\.hasDco\?totals\.azureCost\*dcoSettings\.dcoRate\/100\*\(1-passedShare\):0/);
+  assert.match(html, /id="distBusinessChart"/);
   assert.doesNotMatch(html, /Partner Earned Credit/);
   assert.match(html, /data-pane="pricing">Distributor<\/button>/);
   assert.match(html, /id="projectTips"/);
@@ -254,7 +267,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /return ensureOfflinePrivacy\(content\)/);
   assert.doesNotMatch(html, /localStorage\.setItem\(['"](?:projectName|calculations|rows)/);
   assert.match(html, /function defaultState\(\)\{return\{sql:\{currency:'EUR',rows:\[\{edition:'Standard',qty:1,cores:32,uptime:'7x24'\},\{edition:'Standard',qty:1,cores:16,uptime:'5x10'\}\]/);
-  assert.match(html, /windows:\{currency:'EUR',rows:\[\{edition:'Datacenter',qty:2,cores:8,uptime:'7x24'\},\{edition:'Datacenter',qty:1,cores:4,uptime:'5x10'\}\]/);
+  assert.match(html, /windows:\{currency:'EUR',rows:\[\{edition:'Datacenter',qty:0,cores:8,uptime:'7x24'\},\{edition:'Datacenter',qty:0,cores:4,uptime:'5x10'\}\]/);
   assert.match(html, /function resetAll\(\).*?let defaults=defaultState\(\);state\.sql=defaults\.sql;state\.windows=defaults\.windows/);
   assert.doesNotMatch(html, /cores:220|qty:20|qty:40/);
 
