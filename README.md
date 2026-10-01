@@ -1,6 +1,6 @@
-# Arc PAYG vs. SPLA Estimator
+# Arc PAYG vs. SPLA Estimator for the Indirect Channel
 
-A static GitHub Pages estimator for comparing the economics of Azure Arc
+An estimator for comparing the economics of Azure Arc
 pay-as-you-go licensing and SPLA for SQL Server and Windows Server workloads.
 
 The estimator is self-contained in `site/index.html`. Distributor Azure PAYG
@@ -9,31 +9,10 @@ site loads without making a pricing API request. Distributor SPLA list prices,
 reseller SPLA prices, and reseller Azure PAYG prices remain user-provided. The
 SQL and Windows comparisons use the reseller prices. The distributor business
 case compares those revenues with distributor SPLA list costs and embedded Azure
-costs after the fixed 15% PEC discount. PEC is not deducted from reseller PAYG
-cost or reseller Azure revenue. User-provided prices persist in
+costs after the fixed 15% PEC discount. User-provided prices persist in
 browser storage and exported project JSON files, but are never embedded in a
 hosted or offline HTML copy. Project names and configured workloads are retained
 only in exported project JSON files.
-
-Exported project JSON contains one top-level `currency` field directly after
-`projectName`. Currency is not duplicated in the SQL and Windows calculation
-sections. Imports remain compatible with older project files that store the
-same currency in both calculation sections.
-
-New exports use `hasSplaIncentives` and descriptive product keys such as
-`sqlServerStandardSpla`, `sqlServerEnterprisePayg`, and
-`windowsServerDatacenterPayg`. Imports also accept the legacy `hasSpla`,
-`spla1`/`spla2`, and `payg1`/`payg2` keys.
-
-DCO is configured once at the distributor level and applies to both reseller
-calculations. Its default incentive rate is 12%. The reseller impact includes a
-DCO component only when pass-along is enabled and the configured share is
-greater than zero. The distributor business case includes the retained DCO
-share. Its SPLA incentive, MCI Core, and MCI Growth Accelerator defaults are 5%,
-3%, and 12%, respectively. A highlighted economic-impact growth result compares
-Azure PAYG with SPLA total economic contribution using
-`(Azure contribution - SPLA contribution) / |SPLA contribution| * 100`. The
-result is unavailable when SPLA contribution is zero.
 
 ## Price refresh and deployment
 
