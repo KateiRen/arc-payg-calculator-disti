@@ -192,7 +192,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /<header[\s\S]*id="saveOffline" hidden[\s\S]*<\/header>/);
   assert.match(html, /function saveOfflineFile\(/);
   assert.match(html, /location\.hostname==='kateiren\.github\.io'/);
-  assert.match(html, /location\.pathname\.startsWith\('\/arc-payg-calculator\/'\)/);
+  assert.match(html, /location\.pathname\.startsWith\('\/arc-payg-calculator-disti\/'\)/);
   assert.match(html, /id="saveOfflineInstruction" hidden/);
   assert.match(html, /\$\('saveOffline'\)\.hidden=\$\('saveOfflineInstruction'\)\.hidden=!onGitHubPages/);
   assert.match(html, /if\(onGitHubPages\)\$\('saveOffline'\)\.onclick=saveOfflineFile/);
@@ -201,7 +201,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /const OFFLINE_EXPORTED_AT=\$\{JSON\.stringify\(new Date\(\)\.toISOString\(\)\)\};/);
   assert.match(html, /offline=location\.protocol==='file:'/);
   assert.match(html, /\$\('offlineNotice'\)\.hidden=!offline/);
-  assert.match(html, /https:\/\/kateiren\.github\.io\/arc-payg-calculator\//);
+  assert.match(html, /https:\/\/kateiren\.github\.io\/arc-payg-calculator-disti\//);
   assert.doesNotMatch(html, /dco-tooltip|dcoTooltip|class="tooltip"|role="tooltip"/);
   assert.match(html, /\.tabs\{display:flex;gap:0;overflow:hidden;border:1px solid var\(--line\);border-radius:11px/);
   assert.match(html, /\.tabs \.tab\{flex:1;border:0;border-radius:0\}/);
@@ -263,7 +263,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /if\(next==='pricing'&&!await confirmDistributorAccess\(\)\)return/);
   assert.match(html, /id="projectTips"/);
   assert.match(html, /Tipp: Only enter once\. Exporting the calculation saves your entered values/);
-  assert.match(html, /Pro-Tipp: export without entering anything to get the desired structure and ask Copilot to fill your prices\./);
+  assert.match(html, /Pro-Tipp: export without entering anything and ask Copilot to fill your prices in the json file\./);
   assert.match(html, /\$\('projectTips'\)\.hidden=!!name/);
   assert.match(html, /SQL Server List Prices/);
   assert.match(html, /Windows Server List Prices/);
