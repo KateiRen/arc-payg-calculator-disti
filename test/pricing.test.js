@@ -210,7 +210,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /const PEC_RATE=\.15;/);
   assert.doesNotMatch(html, /id="pec"/);
   assert.match(html, /It is not deducted from reseller Azure revenue in the distributor business case/);
-  assert.match(html, /<span class="pill">PEC applied<\/span>/);
+  assert.doesNotMatch(html, /<span class="pill">PEC applied<\/span>/);
   assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
   assert.match(html, /function defaultDcoSettings\(\)\{return\{hasDco:false,dcoRate:12,passDco:false,dcoShare:0,splaIncentive:5,mci:3,growth:12\}\}/);
   assert.match(html, /id="hasDco"/);
@@ -238,6 +238,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /windowsServerDatacenterPayg:p\.payg2/);
   assert.match(html, /sqlServerStandardSpla\?\?p\.spla1/);
   assert.match(html, /windowsServerDatacenterPayg\?\?p\.payg2/);
+  assert.match(html, /p=normalizeProjectPrice\(product,existingPricing\[key\]\);project\.pricing\[key\]\.payg1=p\.payg1;project\.pricing\[key\]\.payg2=p\.payg2/);
   assert.match(html, /id="distSplaIncentive"/);
   assert.match(html, /Your average incentives on SLA \(%\)/);
   assert.match(html, /Non-Named Hoster&#10;- SQL SE 4%&#10;- SQL EE 7%&#10;&#10;Named Hoster&#10;- SQL SE 3%&#10;- SQL EE 3%/);
@@ -260,8 +261,11 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /Tipp: Only enter once\. Exporting the calculation saves your entered values/);
   assert.match(html, /Pro-Tipp: export without entering anything to get the desired structure and ask Copilot to fill your prices\./);
   assert.match(html, /\$\('projectTips'\)\.hidden=!!name/);
-  assert.match(html, /SPLA List Price/);
-  assert.match(html, /SPLA Reseller Prices/);
+  assert.match(html, /SQL Server List Prices/);
+  assert.match(html, /Windows Server List Prices/);
+  assert.match(html, /SQL Server Reseller Prices/);
+  assert.match(html, /Windows Server Reseller Prices/);
+  assert.match(html, /\.pricing-section\{border-top:1px solid var\(--line\)/);
   for (const id of [
     'sqlSplaList1', 'sqlSplaList2', 'winSplaList1', 'winSplaList2',
     'sqlSpla1', 'sqlSpla2', 'winSpla1', 'winSpla2',
