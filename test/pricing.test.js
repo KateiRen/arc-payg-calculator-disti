@@ -227,6 +227,10 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /distributor:JSON\.parse\(JSON\.stringify\(dcoSettings\)\)/);
   assert.doesNotMatch(html, /Partner Earned Credit/);
   assert.match(html, /data-pane="pricing">Distributor<\/button>/);
+  assert.match(html, /id="projectTips"/);
+  assert.match(html, /Tipp: Only enter once\. Exporting the calculation saves your entered values/);
+  assert.match(html, /Pro-Tipp: export without entering anything to get the desired structure and ask Copilot to fill your prices\./);
+  assert.match(html, /\$\('projectTips'\)\.hidden=!!name/);
   assert.match(html, /SPLA List Price/);
   assert.match(html, /SPLA Reseller Prices/);
   for (const id of [
