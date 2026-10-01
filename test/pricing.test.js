@@ -212,8 +212,8 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /reseller SPLA incentives are calculated using the reseller SPLA price\. This overstates the incentive base by the distributor's SPLA markup\./);
   assert.match(html, /PEC is fixed at 15% and deducted only from embedded distributor Azure cost\./);
   assert.doesNotMatch(html, /<span class="pill">PEC applied<\/span>/);
-  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]/);
-  assert.doesNotMatch(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+paygIdx\]/);
+  assert.doesNotMatch(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+paygIdx\]\*\(1-PEC_RATE\)/);
   assert.match(html, /function defaultDcoSettings\(\)\{return\{hasDco:false,dcoRate:12,passDco:false,dcoShare:0,splaIncentive:5,mci:3,growth:12\}\}/);
   assert.match(html, /id="hasDco"/);
   assert.strictEqual((html.match(/id="hasDco"/g) || []).length, 1);
@@ -241,8 +241,13 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /sqlServerEnterprisePayg:p\.payg2/);
   assert.match(html, /windowsServerStandardSpla:p\.spla1/);
   assert.match(html, /windowsServerDatacenterPayg:p\.payg2/);
+  assert.doesNotMatch(html, /windowsServerStandardPayg:p\.payg1/);
+  assert.doesNotMatch(html, /windowsServerStandardResellerPayg:p\.resellerPayg1/);
   assert.match(html, /sqlServerStandardSpla\?\?p\.spla1/);
-  assert.match(html, /windowsServerDatacenterPayg\?\?p\.payg2/);
+  assert.match(html, /payg=p\.windowsServerDatacenterPayg\?\?p\.windowsServerStandardPayg\?\?p\.payg2\?\?p\.payg1/);
+  assert.match(html, /resellerPayg=p\.windowsServerDatacenterResellerPayg\?\?p\.windowsServerStandardResellerPayg\?\?p\.resellerPayg2\?\?p\.resellerPayg1/);
+  assert.match(html, /payg1:payg,payg2:payg,resellerPayg1:resellerPayg,resellerPayg2:resellerPayg/);
+  assert.match(html, /paygIdx=sql\?splaIdx:2/);
   assert.match(html, /p=normalizeProjectPrice\(product,existingPricing\[key\]\);project\.pricing\[key\]\.payg1=p\.payg1;project\.pricing\[key\]\.payg2=p\.payg2/);
   assert.match(html, /id="distSplaIncentive"/);
   assert.match(html, /Your average incentives on SLA \(%\)/);
@@ -250,9 +255,9 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /id="distMci"/);
   assert.match(html, /id="distGrowth"/);
   assert.match(html, /function distributorRowEconomics\(/);
-  assert.match(html, /azureRevenue:paygC\*hours\*p\['resellerPayg'\+idx\],azureCost:/);
-  assert.doesNotMatch(html, /azureRevenue:paygC\*hours\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
-  assert.match(html, /azureCost:paygC\*hours\*p\['payg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /azureRevenue:paygC\*hours\*p\['resellerPayg'\+paygIdx\],azureCost:/);
+  assert.doesNotMatch(html, /azureRevenue:paygC\*hours\*p\['resellerPayg'\+paygIdx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /azureCost:paygC\*hours\*p\['payg'\+paygIdx\]\*\(1-PEC_RATE\)/);
   assert.match(html, /splaContribution=splaBaseGrossProfit\+splaIncentive/);
   assert.match(html, /azureContribution=azureBaseGrossProfit-splaIncentive\+mci\+growth\+retainedDco/);
   assert.match(html, /id="distEconomicImpactGrowth"/);
