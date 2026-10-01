@@ -289,6 +289,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   }
   assert.match(html, /if\(!p\.splaEntered\)missing\.push\('reseller SPLA prices'\)/);
   assert.match(html, /if\(!p\.resellerPaygEntered\)missing\.push\('reseller Azure PAYG prices'\)/);
+  assert.match(html, /id="distBusinessWarning"[\s\S]*Distributor SPLA list prices and reseller Azure PAYG prices have not been entered/);
   assert.match(html, /splaList1:splaListEntered\?splaList1:0/);
   assert.match(html, /resellerPayg1:resellerPaygEntered\?resellerPayg1:0/);
   assert.doesNotMatch(html, /const WINSPLA=|const SQL=\{/);
