@@ -257,6 +257,9 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /id="distBusinessChart"/);
   assert.doesNotMatch(html, /Partner Earned Credit/);
   assert.match(html, /data-pane="pricing">Distributor<\/button>/);
+  assert.match(html, /id="distributorWarning"[\s\S]*Distributor internal data[\s\S]*Do you really want to open it\?/);
+  assert.match(html, /function confirmDistributorAccess\(\)/);
+  assert.match(html, /if\(next==='pricing'&&!await confirmDistributorAccess\(\)\)return/);
   assert.match(html, /id="projectTips"/);
   assert.match(html, /Tipp: Only enter once\. Exporting the calculation saves your entered values/);
   assert.match(html, /Pro-Tipp: export without entering anything to get the desired structure and ask Copilot to fill your prices\./);
