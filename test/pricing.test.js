@@ -207,8 +207,13 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /\.tabs \.tab\{flex:1;border:0;border-radius:0\}/);
   assert.match(html, /\.tabs \.tab\+\.tab\{border-left:1px solid var\(--line\)\}/);
   assert.match(html, /function compact\(v\)\{return new Intl\.NumberFormat\(undefined,\{style:'currency',currency:state\[pane\]\.currency,notation:'compact'/);
-  assert.match(html, /labels=\['SPLA Incentive loss','Purchase price','PEC','MCI Core','Growth Accelerator','DCO'\]/);
-  assert.doesNotMatch(html, /labels=\['SPLA loss','Purchase price','PEC','MCI','Accelerator','DCO'\]/);
+  assert.match(html, /const PEC_RATE=\.15;/);
+  assert.doesNotMatch(html, /id="pec"/);
+  assert.match(html, /PEC is fixed at 15% and deducted from the stored Azure PAYG price before the cost comparison/);
+  assert.match(html, /<span class="pill">PEC applied<\/span>/);
+  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['payg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /labels=\['SPLA Incentive loss','Purchase price','MCI Core','Growth Accelerator','DCO'\]/);
+  assert.doesNotMatch(html, /Partner Earned Credit/);
   assert.doesNotMatch(html, /const WINSPLA=|const SQL=\{/);
   assert.match(html, /const SQLPAYG=\{/);
   assert.match(html, /function azurePricingSnapshot\(\).*?snapshot\[key\]=\{payg1:p\.payg1,payg2:p\.payg2\}/);
