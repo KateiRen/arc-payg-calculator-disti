@@ -227,6 +227,9 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /if\(dcoShare>0\)parts\.push\(\['DCO incentive'/);
   assert.doesNotMatch(html, /s\.hasDco=\$\('hasDco'\)|s\.hasDco\?\.1/);
   assert.match(html, /distributor:JSON\.parse\(JSON\.stringify\(dcoSettings\)\)/);
+  assert.match(html, /format:'arc-payg-spla-disti-project'/);
+  assert.match(html, /if\(data\?\.format==='arc-payg-spla-project'\)throw Error\('This is a project of the Direct Arc PAYG Estimator'\)/);
+  assert.match(html, /data\.format!=='arc-payg-spla-disti-project'/);
   assert.match(html, /projectName:name,currency:state\.sql\.currency,azurePricesRefreshedAt/);
   assert.match(html, /function calculationsSnapshot\(\).*?let\{currency,hasSpla,\.\.\.calculation\}=state\[product\]/);
   assert.match(html, /hasSplaIncentives:hasSpla/);
