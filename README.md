@@ -9,8 +9,8 @@ site loads without making a pricing API request. Distributor SPLA list prices,
 reseller SPLA prices, and reseller Azure PAYG prices remain user-provided. The
 SQL and Windows comparisons use the reseller prices. The distributor business
 case compares those revenues with distributor SPLA list costs and embedded Azure
-costs after the fixed 15% PEC discount. PEC is not deducted from reseller Azure
-revenue in the distributor business case. User-provided prices persist in
+costs after the fixed 15% PEC discount. PEC is not deducted from reseller PAYG
+cost or reseller Azure revenue. User-provided prices persist in
 browser storage and exported project JSON files, but are never embedded in a
 hosted or offline HTML copy. Project names and configured workloads are retained
 only in exported project JSON files.

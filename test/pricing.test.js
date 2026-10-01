@@ -209,9 +209,10 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /function compact\(v\)\{return new Intl\.NumberFormat\(undefined,\{style:'currency',currency:state\[pane\]\.currency,notation:'compact'/);
   assert.match(html, /const PEC_RATE=\.15;/);
   assert.doesNotMatch(html, /id="pec"/);
-  assert.match(html, /It is not deducted from reseller Azure revenue in the distributor business case/);
+  assert.match(html, /It is not deducted from reseller PAYG cost or reseller Azure revenue/);
   assert.doesNotMatch(html, /<span class="pill">PEC applied<\/span>/);
-  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
+  assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]/);
+  assert.doesNotMatch(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
   assert.match(html, /function defaultDcoSettings\(\)\{return\{hasDco:false,dcoRate:12,passDco:false,dcoShare:0,splaIncentive:5,mci:3,growth:12\}\}/);
   assert.match(html, /id="hasDco"/);
   assert.strictEqual((html.match(/id="hasDco"/g) || []).length, 1);

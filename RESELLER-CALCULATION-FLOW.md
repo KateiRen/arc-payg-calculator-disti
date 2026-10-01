@@ -21,10 +21,8 @@ flowchart TD
     SPLA_CORE --> SPLA_COST["Monthly reseller SPLA cost"]
     SPLA_MIN --> SPLA_COST
 
-    R_AZURE --> PEC["Apply fixed 15% PEC reduction"]
-    PEC --> AZURE_NET["Net reseller Azure PAYG price"]
     WORKLOAD --> PAYG_USAGE["Apply PAYG core minimums and uptime<br/>SQL: 4 cores per workload<br/>Windows: 1 core per VM"]
-    AZURE_NET --> PAYG_COST["Monthly reseller PAYG cost"]
+    R_AZURE --> PAYG_COST["Monthly reseller PAYG cost<br/>without PEC deduction"]
     PAYG_USAGE --> PAYG_COST
 
     SPLA_COST --> ANNUAL["Annualize monthly costs"]
