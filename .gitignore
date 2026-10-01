@@ -1,4 +1,5 @@
 node_modules/
+exports/
 *.arc-project.json
 
 # Local environment and secrets
