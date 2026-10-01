@@ -192,7 +192,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /<header[\s\S]*id="saveOffline" hidden[\s\S]*<\/header>/);
   assert.match(html, /function saveOfflineFile\(/);
   assert.match(html, /location\.hostname==='kateiren\.github\.io'/);
-  assert.match(html, /location\.pathname\.startsWith\('\/arc-payg-calculator-disti\/'\)/);
+  assert.match(html, /location\.pathname\.startsWith\('\/arc-payg-estimator-disti\/'\)/);
   assert.match(html, /id="saveOfflineInstruction" hidden/);
   assert.match(html, /\$\('saveOffline'\)\.hidden=\$\('saveOfflineInstruction'\)\.hidden=!onGitHubPages/);
   assert.match(html, /if\(onGitHubPages\)\$\('saveOffline'\)\.onclick=saveOfflineFile/);
@@ -201,7 +201,7 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /const OFFLINE_EXPORTED_AT=\$\{JSON\.stringify\(new Date\(\)\.toISOString\(\)\)\};/);
   assert.match(html, /offline=location\.protocol==='file:'/);
   assert.match(html, /\$\('offlineNotice'\)\.hidden=!offline/);
-  assert.match(html, /https:\/\/kateiren\.github\.io\/arc-payg-calculator-disti\//);
+  assert.match(html, /https:\/\/kateiren\.github\.io\/arc-payg-estimator-disti\//);
   assert.doesNotMatch(html, /dco-tooltip|dcoTooltip|class="tooltip"|role="tooltip"/);
   assert.match(html, /\.tabs\{display:flex;gap:0;overflow:hidden;border:1px solid var\(--line\);border-radius:11px/);
   assert.match(html, /\.tabs \.tab\{flex:1;border:0;border-radius:0\}/);
@@ -209,7 +209,8 @@ test('published estimator uses workflow pricing and offers an offline copy', () 
   assert.match(html, /function compact\(v\)\{return new Intl\.NumberFormat\(undefined,\{style:'currency',currency:state\[pane\]\.currency,notation:'compact'/);
   assert.match(html, /const PEC_RATE=\.15;/);
   assert.doesNotMatch(html, /id="pec"/);
-  assert.match(html, /It is not deducted from reseller PAYG cost or reseller Azure revenue/);
+  assert.match(html, /reseller SPLA incentives are calculated using the reseller SPLA price\. This overstates the incentive base by the distributor's SPLA markup\./);
+  assert.match(html, /PEC is fixed at 15% and deducted only from embedded distributor Azure cost\./);
   assert.doesNotMatch(html, /<span class="pill">PEC applied<\/span>/);
   assert.match(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]/);
   assert.doesNotMatch(html, /payg:paygC\*HOURS\[r\.uptime\]\*p\['resellerPayg'\+idx\]\*\(1-PEC_RATE\)/);
